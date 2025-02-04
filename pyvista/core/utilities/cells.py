@@ -14,7 +14,7 @@ import numpy as np
 import pyvista
 from pyvista.core import _vtk_core as _vtk
 
-if TYPE_CHECKING:  # pragma: no cover
+if TYPE_CHECKING:
     from pyvista.core._typing_core import ArrayLike
     from pyvista.core._typing_core import NumpyArray
 
@@ -45,14 +45,16 @@ def ncells_from_cells(cells: NumpyArray[int]) -> int:
 
 @overload
 def numpy_to_idarr(
-    ind: int | ArrayLike[int],
-    deep: bool = ...,
-    return_ind: Literal[True] = True,
+    ind: int | ArrayLike[int], deep: bool = ..., return_ind: Literal[True] = True
 ) -> _vtk.vtkIdTypeArray: ...
 @overload
 def numpy_to_idarr(
     ind: int | ArrayLike[int], deep: bool = ..., return_ind: Literal[False] = False
 ) -> tuple[_vtk.vtkIdTypeArray, NumpyArray[int]]: ...
+@overload
+def numpy_to_idarr(
+    ind: int | ArrayLike[int], deep: bool = ..., return_ind: bool = ...
+) -> tuple[_vtk.vtkIdTypeArray, NumpyArray[int]] | _vtk.vtkIdTypeArray: ...
 def numpy_to_idarr(
     ind: int | ArrayLike[int],
     deep: bool = False,

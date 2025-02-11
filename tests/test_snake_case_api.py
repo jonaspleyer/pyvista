@@ -56,6 +56,7 @@ def try_init_object(class_, kwargs):
     return instance
 
 
+@pytest.mark.needs_vtk_version(9, 4, 0)
 def test_vtk_snake_case_api_is_disabled(vtk_subclass):
     # Define kwargs as required for some cases.
     kwargs = {}

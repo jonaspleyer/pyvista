@@ -1116,7 +1116,7 @@ class _ChartBackground(_CustomContextItem):
         return True
 
 
-class _Chart(DocSubs):
+class _Chart(_vtk.DisableSnakeCaseAPI, DocSubs):
     """Common pythonic interface for vtkChart, vtkChartBox, vtkChartPie and ChartMPL instances."""
 
     # Subclasses should specify following substitutions: 'chart_name', 'chart_args', 'chart_init' and 'chart_set_labels'.

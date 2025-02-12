@@ -56,7 +56,6 @@ def try_init_object(class_, kwargs):
     return instance
 
 
-@pytest.mark.needs_vtk_version(9, 4, 0)
 def test_vtk_snake_case_api_is_disabled(vtk_subclass):
     # Define kwargs as required for some cases.
     kwargs = {}
@@ -80,6 +79,9 @@ def test_vtk_snake_case_api_is_disabled(vtk_subclass):
     # Make sure the CamelCase attribute exists and can be accessed
     assert hasattr(instance, vtk_attr_camel_case)
 
-    # Test getting the snake_case equivalent raises error
-    with pytest.raises(PyVistaAPIAttributeError):
-        getattr(instance, vtk_attr_snake_case)
+    if pv.vtk_version_info >= (9, 4):
+        # Test getting the snake_case equivalent raises error
+        with pytest.raises(PyVistaAPIAttributeError):
+            getattr(instance, vtk_attr_snake_case)
+    else:
+        assert not hasattr(instance, vtk_attr_snake_case)

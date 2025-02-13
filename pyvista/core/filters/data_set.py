@@ -9802,8 +9802,8 @@ class DataSetFilters:
     def _voxelize_binary_mask_cells(  # type: ignore[misc]
         self: DataSet,
         *,
-        background_value: float = 0.0,
-        foreground_value: float = 1.0,
+        background_value: float = 0,
+        foreground_value: float = 1,
         reference_volume: ImageData | None,
         dimensions: VectorLike[int] | None,
         spacing: float | VectorLike[float] | None,

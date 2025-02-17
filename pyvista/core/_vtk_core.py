@@ -585,6 +585,7 @@ def VTKVersionInfo():
 
 vtk_version_info = VTKVersionInfo()
 
+
 class DisableSnakeCaseAPI:
     """Base class to raise error if using VTK's `snake_case` API."""
 
@@ -606,6 +607,7 @@ class DisableSnakeCaseAPI:
                 if cls is not None and cls.__module__.startswith('vtkmodules'):
                     raise PyVistaAPIAttributeError(attr=item)
         return super().__getattribute__(item)
+
 
 class vtkPyVistaOverride:
     """Base class to automatically override VTK classes with PyVista classes."""

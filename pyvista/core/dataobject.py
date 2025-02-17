@@ -25,7 +25,6 @@ from .utilities.fileio import read
 from .utilities.fileio import save_pickle
 from .utilities.fileio import set_vtkwriter_mode
 from .utilities.helpers import wrap
-from .utilities.misc import abstract_class
 
 if TYPE_CHECKING:
     from types import FunctionType

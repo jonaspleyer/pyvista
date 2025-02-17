@@ -40,8 +40,7 @@ if TYPE_CHECKING:
 DEFAULT_VECTOR_KEY = '_vectors'
 
 
-@abstract_class
-class DataObject(_vtk.DisableSnakeCaseAPI):
+class DataObject(_vtk.DisableSnakeCaseAPI, _vtk.vtkPyVistaOverride):
     """Methods common to all wrapped data objects.
 
     Parameters

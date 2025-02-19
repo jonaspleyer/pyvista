@@ -22,10 +22,7 @@ def get_all_classes() -> tuple[tuple[str, ...], tuple[type, ...]]:
             module_attr = getattr(module, module_item)
             if not hasattr(module_attr, '__mro__'):
                 continue  # not a class
-            if any(
-                (name := item.__name__).startswith('vtk') and 'vtkPyVista' not in name
-                for item in module_attr.__mro__
-            ):
+            if any(item.__name__.startswith('vtk') for item in module_attr.__mro__):
                 class_types.append(module_attr)
 
     # Get from core and plotting separately since plotting module has a lazy importer

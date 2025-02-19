@@ -600,12 +600,17 @@ class DisableSnakeCaseAPI:
                 return None
 
             # Raise error if accessing attributes from VTK's pythonic snake_case API
-            from pyvista.core.errors import PyVistaAPIAttributeError
-
-            if item not in ['__class__', '__init__'] and item[0].islower():
-                cls = find_defining_class(self.__class__, item)
-                if cls is not None and cls.__module__.startswith('vtkmodules'):
-                    raise PyVistaAPIAttributeError(attr=item)
+            try:
+                from pyvista.core.errors import PyVistaAPIAttributeError
+            except ImportError:
+                # Need to ignore import errors since attribute checks when deleting
+                # objects may fail when python is shutting down
+                ...
+            else:
+                if item not in ['__class__', '__init__'] and item[0].islower():
+                    cls = find_defining_class(self.__class__, item)
+                    if cls is not None and cls.__module__.startswith('vtkmodules'):
+                        raise PyVistaAPIAttributeError(attr=item)
         return super().__getattribute__(item)
 
 

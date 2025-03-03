@@ -780,7 +780,7 @@ class Camera(_vtk.vtkCamera):
 
         return new_camera
 
-    def tight(self, padding=0.0, adjust_render_window=True, view='xy', negative=False):
+    def tight(self, padding=0.0, adjust_render_window=True, view='xy', negative=False, bounds=None):
         """Adjust the camera position so that the actors fill the entire renderer.
 
         The camera view direction is reoriented to be normal to the ``view``
@@ -808,6 +808,9 @@ class Camera(_vtk.vtkCamera):
         negative : bool, default: False
             Whether to view in opposite direction.
 
+        bounds : tuple[float, float, float, float, float, float] | None, default: None
+            Manually specify bounds instead of calculating them from existing actors.
+
         Notes
         -----
         This resets the view direction to look at a plane with parallel projection.
@@ -834,7 +837,10 @@ class Camera(_vtk.vtkCamera):
 
         """
         # Inspired by vedo resetCamera. Thanks @marcomusy.
-        x0, x1, y0, y1, z0, z1 = self._renderer.ComputeVisiblePropBounds()
+        if bounds is None:
+            x0, x1, y0, y1, z0, z1 = self._renderer.ComputeVisiblePropBounds()
+        else:
+            x0, y0, x1, y1, z0, z1 = bounds
 
         self.enable_parallel_projection()
 
